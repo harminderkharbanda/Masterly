@@ -26,6 +26,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -34,6 +35,7 @@ import androidx.compose.ui.unit.sp
 import com.harapps.masterly.R
 import com.harapps.masterly.ui.theme.cardSurface
 import com.harapps.masterly.ui.theme.progressColor
+import com.harapps.masterly.ui.theme.progressTrack
 import com.harapps.masterly.ui.theme.textPrimary
 import com.harapps.masterly.ui.theme.textSecondary
 
@@ -62,7 +64,7 @@ fun SkillCartItem(title: String,
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold
                 )
-                Icon(imageVector = Icons.AutoMirrored.Filled.ArrowForward, contentDescription = null, tint = progressColor)
+                Icon(imageVector = Icons.AutoMirrored.Filled.ArrowForward, contentDescription = "Forward Arrow", tint = progressColor)
             }
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -84,7 +86,7 @@ fun SkillCartItem(title: String,
                     color = textSecondary,
                     fontSize = 12.sp)
 
-                Text(text = "10,000 hours",
+                Text(text = stringResource(R.string.hrs_10k),
                     modifier = Modifier.padding(start = 2.dp),
                     color = textSecondary,
                     fontSize = 12.sp)
@@ -97,12 +99,12 @@ fun SkillCartItem(title: String,
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(text = "Progress",
+                Text(text = stringResource(R.string.progress),
                     color = textSecondary,
                     fontWeight = FontWeight.Medium,
                     fontSize = 12.sp)
 
-                Text(text = "${percentage}%",
+                Text(text = stringResource(R.string.skill_percentage, percentage),
                     color = textPrimary,
                     fontWeight = FontWeight.Medium,
                     fontSize = 14.sp)
@@ -118,7 +120,7 @@ fun SkillCartItem(title: String,
 @Preview(showBackground = true)
 @Composable
 fun SkillCardPreview() {
-    SkillCartItem("Flutter", "1,234", 0.13f, 13)
+    SkillCartItem(stringResource(R.string.skill_guitar), "1,234", 0.13f, 13)
 }
 
 @Composable
@@ -126,8 +128,8 @@ fun RoundedProgressBar(
     progress: Float,
     modifier: Modifier = Modifier,
     height: Dp = 10.dp,
-    trackColor: Color = Color(0xFF333238),
-    progressColor: Color = Color(0xFF7C4DFF)
+    trackColor: Color = progressTrack,
+    progressColor: Color = com.harapps.masterly.ui.theme.progressColor
 ) {
     val safeProgress = progress.coerceIn(0f, 1f)
 
