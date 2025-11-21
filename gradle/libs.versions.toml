@@ -9,7 +9,7 @@ lifecycleRuntimeKtx = "2.6.1"
 activityCompose = "1.8.0"
 composeBom = "2024.09.00"
 hilt = "2.48"
-hiltNavCompose = "1.0.0"          # hilt-navigation-compose
+hiltNavCompose = "1.2.0"          # hilt-navigation-compose
 
 
 [libraries]

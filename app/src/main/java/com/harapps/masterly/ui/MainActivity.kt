@@ -10,8 +10,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import com.harapps.masterly.ui.screens.HomeScreen
+import com.harapps.masterly.ui.navigation.AppNavHost
 import com.harapps.masterly.ui.theme.MasterlyTheme
 import com.harapps.masterly.ui.theme.cardSurface
 import dagger.hilt.android.AndroidEntryPoint
@@ -25,7 +24,7 @@ class MainActivity : ComponentActivity() {
             MasterlyTheme {
                 Scaffold(modifier = Modifier.fillMaxSize(),
                     containerColor = cardSurface) { paddingValues ->
-                    HomeScreen(paddingValues)
+                    AppNavHost(paddingValues)
                 }
             }
         }
@@ -36,6 +35,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun HomePreview() {
     MasterlyTheme {
-        HomeScreen(PaddingValues(16.dp))
+        AppNavHost(PaddingValues())
     }
 }

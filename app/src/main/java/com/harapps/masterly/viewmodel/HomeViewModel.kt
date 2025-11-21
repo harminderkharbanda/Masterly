@@ -2,6 +2,7 @@ package com.harapps.masterly.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.harapps.masterly.model.Skill
 import com.harapps.masterly.repository.SkillRepository
 import com.harapps.masterly.ui.SkillUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,21 +17,28 @@ class HomeViewModel @Inject constructor(private val repo: SkillRepository): View
     private val _uiState = MutableStateFlow<SkillUiState>(SkillUiState.Loading)
     val uiState: StateFlow<SkillUiState> = _uiState
 
+    private var cachedSkills: List<Skill> = emptyList()
+
     fun loadSkills() {
         viewModelScope.launch {
             _uiState.value = SkillUiState.Loading
             val result = repo.fetchSkill()
             if (result.isSuccess) {
-                val skill = result.getOrNull()
-                if (skill == null) {
+                val skills = result.getOrNull()
+                if (skills?.isEmpty() == true) {
                     _uiState.value = SkillUiState.Empty
                 } else {
-                    _uiState.value = SkillUiState.Content(skill)
+                    cachedSkills = skills!!
+                    _uiState.value = SkillUiState.Content(skills)
                 }
             } else {
                 _uiState.value = SkillUiState.Error(result.exceptionOrNull()?.message)
             }
         }
+    }
+
+    fun getSkillByName(skillName: String): Skill? {
+        return cachedSkills.firstOrNull { it.skillName == skillName }
     }
 
 }

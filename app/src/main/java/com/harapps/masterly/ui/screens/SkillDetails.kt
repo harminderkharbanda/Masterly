@@ -2,9 +2,11 @@ package com.harapps.masterly.ui.screens
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -24,13 +26,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.harapps.masterly.R
 import com.harapps.masterly.ui.components.RoundedProgressBar
-import com.harapps.masterly.model.Skill
 import com.harapps.masterly.ui.theme.MasterlyTheme
 import com.harapps.masterly.ui.theme.deepRed
 import com.harapps.masterly.ui.theme.progressTrack
@@ -38,18 +42,26 @@ import com.harapps.masterly.ui.theme.purple
 import com.harapps.masterly.ui.theme.skyBlue
 import com.harapps.masterly.ui.theme.textPrimary
 import com.harapps.masterly.ui.theme.white
+import com.harapps.masterly.viewmodel.HomeViewModel
 
 @Composable
-fun SkillDetails(skill: Skill) {
+fun SkillDetails(padding: PaddingValues, skillName: String,
+                 viewModel: HomeViewModel, navController: NavController
+) {
+    val skill = viewModel.getSkillByName(skillName = skillName)
+
     Column(modifier = Modifier
         .fillMaxWidth()
         .fillMaxHeight()
-        .padding(16.dp)) {
+        .padding(top = padding.calculateTopPadding(), bottom = padding.calculateBottomPadding(), start = 16.dp, end = 16.dp)) {
         Row(modifier = Modifier.fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically) {
 
-            Row(verticalAlignment = Alignment.CenterVertically) {
+            Row(verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.clickable(onClick = {
+                    navController.popBackStack()
+                })) {
                 Icon(imageVector = Icons.AutoMirrored.Filled.KeyboardArrowLeft, contentDescription = "Back Arrow", tint = white)
                 Text(text = stringResource(R.string.back),
                     color = textPrimary,
@@ -86,7 +98,7 @@ fun SkillDetails(skill: Skill) {
 
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(
-                text = skill.skillName,
+                text = skill?.skillName ?: "",
                 color = textPrimary,
                 style = MaterialTheme.typography.bodyLarge.copy(
                     fontSize = 24.sp
@@ -104,9 +116,9 @@ fun SkillDetails(skill: Skill) {
                 )
                 Spacer(modifier = Modifier.height(12.dp))
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    RoundedProgressBar(skill.percentageFraction, modifier = Modifier.width(150.dp))
+                    RoundedProgressBar(skill?.percentageFraction ?: 0f, modifier = Modifier.width(150.dp))
                     Text(modifier = Modifier.padding(start = 8.dp),
-                        text = stringResource(R.string.skill_percentage, skill.percentageCompleted),
+                        text = stringResource(R.string.skill_percentage, skill?.percentageCompleted ?: 0),
                         color = skyBlue,
                         style = MaterialTheme.typography.labelMedium)
                 }
@@ -127,10 +139,10 @@ fun SkillDetails(skill: Skill) {
                 )
                 Spacer(modifier = Modifier.height(12.dp))
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    Text(text = skill.hoursCompleted,
+                    Text(text = skill?.hoursCompleted ?: "",
                         color = textPrimary,
                         style = MaterialTheme.typography.bodyLarge)
-                    Text(text = stringResource(R.string.by_10k_hrs, skill.hoursCompleted),
+                    Text(text = stringResource(R.string.by_10k_hrs, skill?.hoursCompleted ?: 0),
                         style = MaterialTheme.typography.labelSmall)
                 }
             }
@@ -170,6 +182,6 @@ fun SkillDetails(skill: Skill) {
 @Composable
 fun SkillDetailsPreview() {
     MasterlyTheme {
-        SkillDetails(Skill("Guitar", 0.25f, 12,"1,250"))
+        SkillDetails(PaddingValues(),"Guitar", hiltViewModel(), NavController(LocalContext.current))
     }
 }
