@@ -1,4 +1,4 @@
-package com.harapps.masterly.ui.utils
+package com.harapps.masterly.utils
 
 import androidx.compose.ui.Modifier
 

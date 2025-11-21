@@ -30,9 +30,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.harapps.masterly.R
 import com.harapps.masterly.ui.components.RoundedProgressBar
-import com.harapps.masterly.ui.model.Skill
+import com.harapps.masterly.model.Skill
 import com.harapps.masterly.ui.theme.MasterlyTheme
-import com.harapps.masterly.ui.theme.cardSurface
 import com.harapps.masterly.ui.theme.deepRed
 import com.harapps.masterly.ui.theme.progressTrack
 import com.harapps.masterly.ui.theme.purple

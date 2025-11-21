@@ -1,4 +1,4 @@
-package com.harapps.masterly.ui.model
+package com.harapps.masterly.model
 
 data class Skill (
     val skillName: String,
