@@ -23,6 +23,12 @@ val Typography = Typography(
         letterSpacing = 0.5.sp,
         color = textPrimary
     ),
+//    titleSmall = TextStyle(
+//        fontFamily = FontFamily.Default,
+//        fontWeight = FontWeight.Normal,
+//        fontSize = 12.sp,
+//        color = textPrimary
+//    )
     labelSmall = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Normal,

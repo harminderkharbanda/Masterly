@@ -27,6 +27,7 @@ fun RoundedProgressBar(
     Box(
         modifier = modifier
             .fillMaxWidth()
+            .then(modifier)
             .height(height)
             .clip(RoundedCornerShape(50))
             .background(trackColor)

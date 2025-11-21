@@ -60,7 +60,6 @@ fun SkillCartItem(title: String,
             }
 
             Spacer(modifier = Modifier.height(8.dp))
-
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(painter = painterResource(R.drawable.stopwatch),
                     tint = textSecondary,
